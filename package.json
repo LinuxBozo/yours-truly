@@ -1,0 +1,28 @@
+{
+  "name": "yours-truly",
+  "version": "0.0.1",
+  "description": "yours-truly works with protagonist to generate an HTML version of your API",
+  "main": "yt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LinuxBozo/yours-truly.git"
+  },
+   "dependencies": {
+    "protagonist": "~0.5.2",
+    "ejs": "~0.8.4"
+  },
+  "keywords": [
+    "protagonist",
+    "snowcrash",
+    "apiblueprint",
+    "html"
+  ],
+  "author": "M. Adam Kendall <linuxbozo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LinuxBozo/yours-truly/issues"
+  }
+}
