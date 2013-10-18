@@ -1,6 +1,6 @@
 {
   "name": "yours-truly",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "yours-truly works with protagonist to generate an HTML version of your API",
   "main": "yt.js",
   "scripts": {
@@ -17,8 +17,11 @@
   "keywords": [
     "protagonist",
     "snowcrash",
-    "apiblueprint",
-    "html"
+    "api",
+    "blueprint",
+    "html",
+    "parse",
+    "markdown"
   ],
   "author": "M. Adam Kendall <linuxbozo@gmail.com>",
   "license": "MIT",

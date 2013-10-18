@@ -1,3 +1,15 @@
 #!/usr/bin/env node
 
-require('../process')();
+var yt = require('../yt');
+if (process.argv.length < 3) {
+    console.error("");
+    console.error("Usage: your-truly inputfile" +
+                " [outputfile]");
+    console.error("EX: yours-truly blueprint.md" +
+                " blueprint.html");
+    console.error("");
+    process.exit(1);
+}
+var inputFN = process.argv[2];
+var outputFN = process.argv[3];
+yt(inputFN, outputFN);

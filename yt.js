@@ -85,18 +85,7 @@ function processMD(inputFile, outputFile) {
     });
 }
 
-module.exports = function() {
-    if (process.argv.length < 3) {
-        console.error("");
-        console.error("Usage: your-truly inputfile" +
-                    " [outputfile]");
-        console.error("EX: yours-truly blueprint.md" +
-                    " blueprint.html");
-        console.error("");
-        process.exit(1);
-    }
-    var inputFN = process.argv[2];
-    var outputFN = process.argv[3];
+module.exports = function(inputFN, outputFN) {
     var outputFile = getFilePath(outputFN);
     var inputFile = fs.readFileSync(getFilePath(inputFN)).toString();
     if (outputFile && fs.existsSync(outputFile)) {
