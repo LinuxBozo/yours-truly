@@ -107,10 +107,10 @@
                                                             <% Object.keys(action.parameters).forEach(function (parameter) { %>
                                                                 <dt><%= parameter %></dt>
                                                                 <dd>
-                                                                <% if (action.parameters[parameter].required) { %>
-                                                                    <strong>(required)</strong>
-                                                                <% } %>
                                                                     <code><%= action.parameters[parameter].type %></code>
+                                                                    <% if (action.parameters[parameter].required) { %>
+                                                                    <strong>(required)</strong>
+                                                                    <% } %>
                                                                     <p><%= action.parameters[parameter].description %></p>
                                                                 </dd>
                                                             <% }); %>
@@ -118,10 +118,10 @@
                                                             <% Object.keys(resource.parameters).forEach(function (parameter) { %>
                                                                 <dt><%= parameter %></dt>
                                                                 <dd>
-                                                                <% if (resource.parameters[parameter].required) { %>
-                                                                    <strong>(required)</strong>
-                                                                <% } %>
                                                                     <code><%= resource.parameters[parameter].type %></code>
+                                                                    <% if (resource.parameters[parameter].required) { %>
+                                                                    <strong>(required)</strong>
+                                                                    <% } %>
                                                                     <p><%= resource.parameters[parameter].description %></p>
                                                                 </dd>
                                                             <% }); %>
