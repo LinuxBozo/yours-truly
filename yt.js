@@ -20,7 +20,7 @@ var protagonist = require('protagonist');
 var getButtonClass = function(method) {
     switch(method) {
         case "GET":
-            return "primary"
+            return "default"
         case "POST":
             return "success"
         case "PUT":
