@@ -81,7 +81,6 @@ function processMD(inputFile, outputFile) {
             console.log(error);
             return;
         }
-        console.log(result.ast);
         writer(outputFile, result.ast);
     });
 }
