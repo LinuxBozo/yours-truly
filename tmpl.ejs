@@ -2,8 +2,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><%=api.name%> </title>
-        <meta name="description" content="<%=api.description%>">
+        <title><%= api.name %> </title>
+        <meta name="description" content="<%= api.description %>">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
         <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <style>
@@ -40,36 +40,128 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">
-                        <h1><%=api.name%></h1>
-                        <h2 class="lead"><small><%=api.description%></small></h2>
+                        <h1><%= api.name %></h1>
+                        <h2 class="lead"><small><%= api.description %></small></h2>
                     </div>
                 </div>
 
                 <div class="col-md-3">
                     <ul class="nav nav-pills nav-stacked nav-rg affix" id="group-tab">
-                        <% for(var i=0; i<api.resourceGroups.length; i++) { %>
+                        <% api.resourceGroups.forEach(function (resourceGroup, resourceGroup_index) { %>
                         <li>
-                            <a href="#<%=api.resourceGroups[i].name.replace(/\s+/g, '-').toLowerCase()%>" data-toggle="tab"><strong><%=api.resourceGroups[i].name%></strong></a>
+                            <a href="#<%= dashes(resourceGroup.name) %>" data-toggle="tab">
+                                <strong><%= resourceGroup.name %></strong>
+                            </a>
                         </li>
-                        <% } %>
+                        <% }); %>
                     </ul>
                 </div>
 
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <% for(var i=0; i<api.resourceGroups.length; i++) { %>
-                        <div class="tab-pane" id="<%=api.resourceGroups[i].name.replace(/\s+/g, '-').toLowerCase()%>">
+                        <% api.resourceGroups.forEach(function (resourceGroup, resourceGroup_index) { %>
+                        <div class="tab-pane" id="<%= dashes(resourceGroup.name) %>">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h2 id="<%=api.resourceGroups[i].name.replace(/\s+/g, '-').toLowerCase()%>"><%=api.resourceGroups[i].name%></h2>
+                                    <h2 id="<%= dashes(resourceGroup.name) %>"><%= resourceGroup.name %></h2>
                                 </div>
                                 <div class="panel-body">
-                                    <p class="lead"><small><%=api.resourceGroups[i].description%></small></p>
+                                    <p class="lead"><small><%= resourceGroup.description %></small></p>
+                                    <% resourceGroup.resources.forEach(function (resource, resource_index) { %>
+                                        <% resource.actions.forEach(function (action, action_index) { %>
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <span class="btn btn-<%= getButtonClass(action.method) %>"><%= action.method %></span>
+                                                <code><%= resource.uriTemplate %></code>
+                                            </div>
 
+                                            <div class="panel-body">
+                                                <%= action.description %>
+                                            </div>
+
+                                            <% if ( Object.keys(action.parameters).length > 0 || Object.keys(resource.parameters).length > 0 ) { %>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item bg-default"><strong>Parameters</strong></li>
+                                                    <li class="list-group-item">
+                                                        <dl class="dl-horizontal">
+                                                        <% if (Object.keys(action.parameters).length > 0) { %>
+                                                            <% Object.keys(action.parameters).forEach(function (parameter) { %>
+                                                                <dt><%= parameter %></dt>
+                                                                <dd>
+                                                                <% if (action.parameters[parameter].required) { %>
+                                                                    <strong>(required)</strong>
+                                                                <% } %>
+                                                                <code><%= action.parameters[parameter].type %></code> <%= action.parameters[parameter].description %>
+                                                                </dd>
+                                                            <% }); %>
+                                                        <% } else if ( Object.keys(resource.parameters).length > 0) { %>
+                                                            <% Object.keys(resource.parameters).forEach(function (parameter) { %>
+                                                                <dt><%= parameter %></dt>
+                                                                <dd>
+                                                                <% if (resource.parameters[parameter].required) { %>
+                                                                    <strong>(required)</strong>
+                                                                <% } %>
+                                                                <code><%= resource.parameters[parameter].type %></code> <%= resource.parameters[parameter].description %>
+                                                                </dd>
+                                                            <% }); %>
+                                                        <% } %>
+                                                        </dl>
+                                                    </li>
+                                                </ul>
+                                            <% } %>
+                                            <% if (action.examples) { %>
+                                            <ul class="list-group">
+                                                <li class="list-group-item">
+                                                    <div class="panel panel-success">
+                                                        <div class="panel-heading">Examples</div>
+                                                        <% action.examples.forEach(function (example, example_index) { %>
+                                                            <ul class="list-group">
+                                                            <% example.requests.forEach(function (request, request_index) { %>
+                                                                <li class="list-group-item bg-default request">
+                                                                        <strong>Request <code><%= request.name %></code></strong>
+                                                                        <a href="javascript:;" class="pull-right btn btn-link btn-sm snippet-toggle">SHOW</a>
+                                                                </li>
+                                                                <li class="list-group-item snippet">
+                                                                        <% if (Object.keys(request.headers).length > 0) { %>
+                                                                            <% Object.keys(request.headers).forEach(function (header) { %>
+                                                                                    <code>&gt;&gt; <%= header %>: <%= request.headers[header].value %></code><br />
+                                                                            <% }); %>
+                                                                        <% } %>
+                                                                        <% if (request.body) { %>
+                                                                                <pre class="prettyprint"><%= request.body %></pre>
+                                                                        <% } %>
+                                                                </li>
+                                                            <% }) %>
+                                                            <% example.responses.forEach(function (response, response_index) { %>
+                                                                <li class="list-group-item bg-default response">
+                                                                        <strong>Response <code><%= response.name %></code></strong>
+                                                                        <a href="javascript:;" class="pull-right btn btn-link btn-sm snippet-toggle">SHOW</a>
+                                                                </li>
+                                                                <li class="list-group-item snippet">
+                                                                        <% if (Object.keys(response.headers).length > 0) { %>
+                                                                            <% Object.keys(response.headers).forEach(function (header) { %>
+                                                                                    <code>&lt;&lt; <%= header %>: <%= response.headers[header].value %></code><br />
+                                                                            <% }); %>
+                                                                        <% } %>
+                                                                        <% if (response.body) { %>
+                                                                                <pre class="prettyprint"><%= response.body %></pre>
+                                                                        <% } %>
+                                                                </li>
+                                                            <% }) %>
+                                                            </ul>
+                                                        <% }); %>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <% } %>
+
+                                        </div>
+                                        <% }); %>
+                                    <% }); %>
                                 </div>
                             </div>
                         </div>
-                        <% } %>
+                        <% }); %>
                     </div>
                 </div>
             </div>

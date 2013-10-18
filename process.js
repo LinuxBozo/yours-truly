@@ -17,6 +17,27 @@ var protagonist = require('protagonist');
     cwd = process.cwd(),
     ejs = require('ejs');
 
+var getButtonClass = function(method) {
+    switch(method) {
+        case "GET":
+            return "primary"
+        case "POST":
+            return "success"
+        case "PUT":
+            return "info"
+        case "PATCH":
+            return "warning"
+        case "DELETE":
+            return "danger"
+        default:
+            return "default"
+    }
+};
+
+var dashes = function(input) {
+    return input.replace(/\s+/g, '-').toLowerCase();
+}
+
 /*
  * Helper function to write output to either file or stdout
  */
@@ -25,6 +46,8 @@ function writer(filePath, data) {
     var tmplFile = fs.readFileSync(template, 'utf8');
     html = ejs.render(tmplFile,{
         api: data,
+        getButtonClass: getButtonClass,
+        dashes: dashes,
         filename: template
     })
     if (filePath) {
