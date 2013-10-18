@@ -22,8 +22,21 @@
                 background-color: #fff;
             }
 
+            .param-type {
+                font-weight: bold;
+                color: rgb(0,136,47);
+            }
+
+            .required {
+                color: rgb(199,37,109);
+            }
+
             .bg-default {
                 background-color: #F8F8F8;
+            }
+
+            .default, .example {
+                padding-left: 10px;
             }
 
             .snippet {
@@ -107,9 +120,17 @@
                                                             <% Object.keys(action.parameters).forEach(function (parameter) { %>
                                                                 <dt><%= parameter %></dt>
                                                                 <dd>
-                                                                    <code><%= action.parameters[parameter].type %></code>
+                                                                    <span class="param-type"><%= action.parameters[parameter].type %></span>
                                                                     <% if (action.parameters[parameter].required) { %>
-                                                                    <strong>(required)</strong>
+                                                                    <span class="required">(required)</span>
+                                                                    <% } else { %>
+                                                                    <span>(optional)</span>
+                                                                    <% } %>
+                                                                    <% if (action.parameters[parameter].default) { %>
+                                                                    <span class="text-info default"><strong>Default</strong>: <%= action.parameters[parameter].default %></span>
+                                                                    <% } %>
+                                                                    <% if (action.parameters[parameter].example) { %>
+                                                                    <span class="text-muted example"><strong>Example</strong>: <%= action.parameters[parameter].example %></span>
                                                                     <% } %>
                                                                     <p><%= action.parameters[parameter].description %></p>
                                                                 </dd>
@@ -118,9 +139,17 @@
                                                             <% Object.keys(resource.parameters).forEach(function (parameter) { %>
                                                                 <dt><%= parameter %></dt>
                                                                 <dd>
-                                                                    <code><%= resource.parameters[parameter].type %></code>
+                                                                    <span class="param-type"><%= resource.parameters[parameter].type %></span>
                                                                     <% if (resource.parameters[parameter].required) { %>
-                                                                    <strong>(required)</strong>
+                                                                    <span class="required">(required)</span>
+                                                                    <% } else { %>
+                                                                    <span>(optional)</span>
+                                                                    <% } %>
+                                                                    <% if (resource.parameters[parameter].default) { %>
+                                                                    <span class="text-info default"><strong>Default</strong>: <%= resource.parameters[parameter].default %></span>
+                                                                    <% } %>
+                                                                    <% if (resource.parameters[parameter].example) { %>
+                                                                    <span class="text-muted example"><strong>Example</strong>: <%= resource.parameters[parameter].example %></span>
                                                                     <% } %>
                                                                     <p><%= resource.parameters[parameter].description %></p>
                                                                 </dd>
