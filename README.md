@@ -10,41 +10,41 @@ For more info on writing API documentation, read up on the API Blueprint [specif
 
 Here's a small sample:
 
-```markdown
-FORMAT: 1A
-HOST: https://api.example.com/v1
 
-# Example API
+    FORMAT: 1A
+    HOST: https://api.example.com/v1
 
-A simple API example
+    # Example API
 
-# Group People
+    A simple API example
 
-This section describes the People endpoint
+    # Group People
 
-## Person [/people/{id}]
+    This section describes the People endpoint
 
-Represent a particular Person
+    ## Person [/people/{id}]
 
-+ Parameters
+    Represent a particular Person
 
-    + id (required, string, `123`) ... The id of the Person.
+    + Parameters
 
-+ Model (application/json)
+        + id (required, string, `123`) ... The id of the Person.
 
-    ```
-    {"first_name":"Samuel","last_name":"Adams","birthdate":"09-27-1722"}
-    ```
+    + Model (application/json)
 
-### Retrieve Person [GET]
+        ```
+        {"first_name":"Samuel","last_name":"Adams","birthdate":"09-27-1722"}
+        ```
 
-Return the information for the Person
+    ### Retrieve Person [GET]
 
-+ Response 200 (application/json)
+    Return the information for the Person
 
-    [Person][]
+    + Response 200 (application/json)
 
-```
+        [Person][]
+
+
 
 ## Usage: CLI
 

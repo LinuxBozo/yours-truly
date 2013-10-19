@@ -1,6 +1,6 @@
 {
   "name": "yours-truly",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "yours-truly works with protagonist to generate an HTML version of your API",
   "main": "yt.js",
   "scripts": {
