@@ -45,7 +45,7 @@
             }
 
             .nav-rg {
-                width: 262.5px;
+                width: 25%;
             }
 
             .request {
@@ -57,12 +57,19 @@
                 border-color: rgb(223,240,216);
             }
 
-            @media(max-width:1024px) {
+            .back-top {
+                display: none;
+            }
+
+            @media(max-width:991px) {
                 .affix {
                     position: static;
                     width: auto;
                     top: 0;
                     padding-bottom: 20px;
+                }
+                .back-top {
+                    display: block;
                 }
             }
         </style>
@@ -70,14 +77,14 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <header class="col-md-12">
                     <div class="page-header">
                         <h1><%= api.name %></h1>
                         <h2 class="lead"><small><%= api.description %></small></h2>
                     </div>
-                </div>
+                </header>
 
-                <div class="col-md-3">
+                <nav id="nav" class="col-md-3">
                     <ul class="nav nav-pills nav-stacked nav-rg affix" id="group-tab">
                         <% api.resourceGroups.forEach(function (resourceGroup, resourceGroup_index) { %>
                         <li>
@@ -87,9 +94,9 @@
                         </li>
                         <% }); %>
                     </ul>
-                </div>
+                </nav>
 
-                <div class="col-md-9">
+                <article class="col-md-9">
                     <div class="tab-content">
                         <% api.resourceGroups.forEach(function (resourceGroup, resourceGroup_index) { %>
                         <div class="tab-pane" id="<%= dashes(resourceGroup.name) %>">
@@ -101,7 +108,7 @@
                                     <p class="lead"><small><%= resourceGroup.description %></small></p>
                                     <% resourceGroup.resources.forEach(function (resource, resource_index) { %>
                                         <% resource.actions.forEach(function (action, action_index) { %>
-                                        <div class="panel panel-<%= getButtonClass(action.method) %>">
+                                        <section class="panel panel-<%= getButtonClass(action.method) %>">
                                             <div class="panel-heading">
                                                 <span class="btn btn-xs btn-<%= getButtonClass(action.method) %>"><%= action.method %></span>
                                                 <code><%= resource.uriTemplate %></code>
@@ -203,7 +210,7 @@
                                             </ul>
                                             <% } %>
 
-                                        </div>
+                                        </section>
                                         <% }); %>
                                     <% }); %>
                                 </div>
@@ -211,7 +218,8 @@
                         </div>
                         <% }); %>
                     </div>
-                </div>
+                    <div class="back-top"><a class="btn btn-small" href="#nav"><span class="glyphicon glyphicon-chevron-up"></span>Back to Top</a></div>
+                </article>
             </div>
         </div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
