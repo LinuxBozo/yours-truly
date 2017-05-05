@@ -10,9 +10,9 @@
     "type": "git",
     "url": "git://github.com/LinuxBozo/yours-truly.git"
   },
-   "dependencies": {
+  "dependencies": {
     "protagonist": "~0.5.2",
-    "ejs": "~0.8.4"
+    "ejs": "~2.5.5"
   },
   "keywords": [
     "protagonist",
